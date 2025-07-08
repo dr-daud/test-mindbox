@@ -5,6 +5,7 @@ interface Props {
 	filter: "all" | "active" | "completed";
 	setFilter: (filter: "all" | "active" | "completed") => void;
 	clearCompleted: () => void;
+	totalTasks: number;
 }
 
 const TodoFooter = ({
@@ -12,7 +13,10 @@ const TodoFooter = ({
 	filter,
 	setFilter,
 	clearCompleted,
+	totalTasks,
 }: Props) => {
+	const completedCount = totalTasks - remainingCount;
+
 	return (
 		<Stack
 			direction="row"
@@ -41,7 +45,9 @@ const TodoFooter = ({
 					Completed
 				</Button>
 			</Stack>
-			<Button onClick={clearCompleted}>Clear completed</Button>
+			{completedCount > 0 && (
+				<Button onClick={clearCompleted}>Clear completed</Button>
+			)}
 		</Stack>
 	);
 };
