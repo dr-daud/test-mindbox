@@ -55,7 +55,7 @@ function App() {
 	const [input, setInput] = useState("");
 
 	const addTask = () => {
-		if (input.trim) {
+		if (input.trim()) {
 			setTasks([
 				...tasks,
 				{ id: Date.now(), text: input.trim(), completed: false },
