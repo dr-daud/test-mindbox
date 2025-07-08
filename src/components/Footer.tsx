@@ -1,9 +1,11 @@
 import { Stack, Button, Typography } from "@mui/material";
 
+import type { TFilter } from "../types/types";
+
 interface Props {
 	remainingCount: number;
-	filter: "all" | "active" | "completed";
-	setFilter: (filter: "all" | "active" | "completed") => void;
+	filter: TFilter;
+	setFilter: (filter: TFilter) => void;
 	clearCompleted: () => void;
 	totalTasks: number;
 }

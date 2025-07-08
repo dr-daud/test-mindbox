@@ -1,6 +1,6 @@
 import { ListItem, ListItemText, Checkbox, IconButton } from "@mui/material";
-import type { TTask, TToggleTask } from "./TasksList";
 import { Delete } from "@mui/icons-material";
+import type { TTask, TToggleTask } from "../types/types";
 
 interface Props {
 	task: TTask;

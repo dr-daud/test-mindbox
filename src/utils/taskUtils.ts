@@ -1,10 +1,4 @@
-export type TTask = {
-  id: number;
-  text: string;
-  completed: boolean;
-};
-
-export type TFilter = "all" | "active" | "completed";
+import type { TFilter, TTask } from "../types/types";
 
 export const addTask = (input: string, tasks: TTask[]): TTask[] => {
   const trimmedInput = input.trim();
@@ -18,7 +12,7 @@ export const addTask = (input: string, tasks: TTask[]): TTask[] => {
     completed: false,
   };
   
-  return [...tasks, newTask];
+  return [newTask, ...tasks];
 };
 
 export const toggleTask = (id: number, tasks: TTask[]): TTask[] => {

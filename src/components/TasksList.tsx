@@ -1,39 +1,32 @@
 import { Typography, Box, Stack } from "@mui/material";
+
 import TaskItem from "./TaskItem";
-
-export type TTask = {
-	id: number;
-	text: string;
-	completed: boolean;
-};
-
-export type TToggleTask = (id: number) => void;
+import type { TFilter, TTask, TToggleTask } from "../types/types";
 
 interface Props {
 	filteredTasks: TTask[];
 	toggleTask: TToggleTask;
 	deleteTask: (id: number) => void;
-	filter: "all" | "active" | "completed";
+	filter: TFilter;
 }
 
-const TasksList = ({ filteredTasks, toggleTask, deleteTask, filter }: Props) => {
-	if (filteredTasks.length === 0) {
-		const getEmptyMessage = () => {
-			switch (filter) {
-				case "active":
-					return "No active tasks";
-				case "completed":
-					return "No completed tasks";
-				case "all":
-				default:
-					return "No tasks";
-			}
-		};
+const emptyMessageConfig = {
+	active: "No active tasks",
+	completed: "No completed tasks",
+	all: "No tasks",
+};
 
+const TasksList = ({
+	filteredTasks,
+	toggleTask,
+	deleteTask,
+	filter,
+}: Props) => {
+	if (filteredTasks.length === 0) {
 		return (
 			<Box sx={{ py: 4, textAlign: "center" }}>
 				<Typography variant="body1" color="text.secondary">
-					{getEmptyMessage()}
+					{emptyMessageConfig[filter] || emptyMessageConfig.all}
 				</Typography>
 			</Box>
 		);
