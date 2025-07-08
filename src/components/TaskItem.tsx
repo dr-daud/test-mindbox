@@ -8,7 +8,7 @@ interface Props {
 	deleteTask: (id: number) => void;
 }
 
-export default function TaskItem({ task, toggleTask, deleteTask }: Props) {
+const TaskItem = ({ task, toggleTask, deleteTask }: Props) => {
 	return (
 		<ListItem
 			secondaryAction={
@@ -33,4 +33,6 @@ export default function TaskItem({ task, toggleTask, deleteTask }: Props) {
 			/>
 		</ListItem>
 	);
-}
+};
+
+export default TaskItem;

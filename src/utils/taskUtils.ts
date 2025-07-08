@@ -10,7 +10,7 @@ export const addTask = (input: string, tasks: TTask[]): TTask[] => {
     id: Date.now(),
     text: trimmedInput,
     completed: false,
-  };
+  }; 
   
   return [newTask, ...tasks];
 };

@@ -13,7 +13,7 @@ import TodoFooter from "./components/Footer";
 import type { TFilter } from "./types/types";
 import { TASKS } from "./constants/constants";
 
-function App() {
+const App = () => {
 	const [tasks, setTasks] = useState(TASKS);
 	const [filter, setFilter] = useState<TFilter>("all");
 	const [input, setInput] = useState("");
@@ -96,6 +96,6 @@ function App() {
 			</Paper>
 		</Box>
 	);
-}
+};
 
 export default App;
