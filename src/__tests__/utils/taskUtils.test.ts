@@ -1,4 +1,4 @@
-import type { TTask } from "../../types/types";
+import type { TTask } from "../../types";
 import {
 	addTask,
 	toggleTask,

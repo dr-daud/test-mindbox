@@ -1,7 +1,7 @@
 import { Typography, Box, Stack } from "@mui/material";
 
 import TaskItem from "./TaskItem";
-import type { TFilter, TTask, TToggleTask } from "../types/types";
+import type { TFilter, TTask, TToggleTask } from "../types";
 
 interface Props {
 	filteredTasks: TTask[];

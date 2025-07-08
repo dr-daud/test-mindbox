@@ -10,47 +10,44 @@ import { useState } from "react";
 
 import TasksList from "./components/TasksList";
 import TodoFooter from "./components/Footer";
-import type { TFilter } from "./types/types";
-import { TASKS } from "./constants/constants";
+import type { TFilter } from "./types";
+import { TASKS } from "./constants";
+import {
+	addTask,
+	toggleTask,
+	clearCompleted,
+	deleteTask,
+	filterTasks,
+	getRemainingCount,
+} from "./utils/taskUtils";
 
 const App = () => {
 	const [tasks, setTasks] = useState(TASKS);
 	const [filter, setFilter] = useState<TFilter>("all");
 	const [input, setInput] = useState("");
 
-	const addTask = () => {
-		if (input.trim()) {
-			setTasks([
-				{ id: Date.now(), text: input.trim(), completed: false },
-				...tasks,
-			]);
+	const handleAddTask = () => {
+		const newTasks = addTask(input, tasks);
+		if (newTasks !== tasks) {
+			setTasks(newTasks);
 			setInput("");
 		}
 	};
 
-	const toggleTask = (id: number) => {
-		setTasks(
-			tasks.map((task) =>
-				task.id === id ? { ...task, completed: !task.completed } : task
-			)
-		);
+	const handleToggleTask = (id: number) => {
+		setTasks(toggleTask(id, tasks));
 	};
 
-	const clearCompleted = () => {
-		setTasks(tasks.filter((task) => !task.completed));
+	const handleClearCompleted = () => {
+		setTasks(clearCompleted(tasks));
 	};
 
-	const deleteTask = (id: number) => {
-		setTasks(tasks.filter((task) => task.id !== id));
+	const handleDeleteTask = (id: number) => {
+		setTasks(deleteTask(id, tasks));
 	};
 
-	const filteredTasks = tasks.filter((task) => {
-		if (filter === "active") return !task.completed;
-		if (filter === "completed") return task.completed;
-		return true;
-	});
-
-	const remainingCount = tasks.filter((task) => !task.completed).length;
+	const filteredTasks = filterTasks(tasks, filter);
+	const remainingCount = getRemainingCount(tasks);
 
 	return (
 		<Box sx={{ maxWidth: 700, margin: "auto", padding: 4 }}>
@@ -74,15 +71,15 @@ const App = () => {
 					<Button
 						variant="contained"
 						sx={{ minWidth: "48px", padding: "6px 12px" }}
-						onClick={addTask}
+						onClick={handleAddTask}
 					>
 						add
 					</Button>
 				</Stack>
 				<TasksList
 					filteredTasks={filteredTasks}
-					toggleTask={toggleTask}
-					deleteTask={deleteTask}
+					toggleTask={handleToggleTask}
+					deleteTask={handleDeleteTask}
 					filter={filter}
 				/>
 
@@ -90,7 +87,7 @@ const App = () => {
 					remainingCount={remainingCount}
 					filter={filter}
 					setFilter={setFilter}
-					clearCompleted={clearCompleted}
+					clearCompleted={handleClearCompleted}
 					totalTasks={tasks.length}
 				/>
 			</Paper>
